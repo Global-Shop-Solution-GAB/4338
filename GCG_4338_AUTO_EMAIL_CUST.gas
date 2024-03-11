@@ -1,0 +1,1000 @@
+Program.Sub.ScreenSU.Start
+Gui.F_Cust_Management..create
+Gui.F_Cust_Management..caption("E-Invoicing")
+Gui.F_Cust_Management..size(3650,2450)
+Gui.F_Cust_Management..position(0,0)
+Gui.F_Cust_Management..event(UnLoad,Unload)
+Gui.F_Cust_Management..alwaysontop(False)
+Gui.F_Cust_Management..fontname("Arial")
+Gui.F_Cust_Management..fontsize(8)
+Gui.F_Cust_Management..forecolor(0)
+Gui.F_Cust_Management..fontstyle(,,,)
+Gui.F_Cust_Management..BackColor(-2147483633)
+Gui.F_Cust_Management..controlbox(True)
+Gui.F_Cust_Management..maxbutton(False)
+Gui.F_Cust_Management..minbutton(True)
+Gui.F_Cust_Management..mousepointer(0)
+Gui.F_Cust_Management..moveable(True)
+Gui.F_Cust_Management..sizeable(False)
+Gui.F_Cust_Management..ShowInTaskBar(True)
+Gui.F_Cust_Management..titlebar(True)
+Gui.F_Cust_Management..MinX(0)
+Gui.F_Cust_Management..MinY(0)
+Gui.F_Cust_Management.lbl1.create(label,"Contact e-mail",True,1935,255,1,200,200,True,0,Arial,8,-2147483633,0)
+Gui.F_Cust_Management.txtContactEmail.create(textbox,"",True,3000,300,0,200,400,False,0,Arial,8,-2147483643,1)
+Gui.F_Cust_Management.chkContact.create(checkbox)
+Gui.F_Cust_Management.chkContact.caption("Turn on E-Invoicing for this contact?")
+Gui.F_Cust_Management.chkContact.visible(True)
+Gui.F_Cust_Management.chkContact.size(2970,255)
+Gui.F_Cust_Management.chkContact.zorder(0)
+Gui.F_Cust_Management.chkContact.position(200,800)
+Gui.F_Cust_Management.chkContact.enabled(True)
+Gui.F_Cust_Management.chkContact.alignment(0)
+Gui.F_Cust_Management.chkContact.fontname("Arial")
+Gui.F_Cust_Management.chkContact.fontsize(8)
+Gui.F_Cust_Management.chkSalesRep.create(checkbox)
+Gui.F_Cust_Management.chkSalesRep.caption("Turn on E-Invoicing for Sales Rep?")
+Gui.F_Cust_Management.chkSalesRep.visible(True)
+Gui.F_Cust_Management.chkSalesRep.size(2970,255)
+Gui.F_Cust_Management.chkSalesRep.zorder(0)
+Gui.F_Cust_Management.chkSalesRep.position(200,1100)
+Gui.F_Cust_Management.chkSalesRep.enabled(True)
+Gui.F_Cust_Management.chkSalesRep.alignment(0)
+Gui.F_Cust_Management.chkSalesRep.fontname("Arial")
+Gui.F_Cust_Management.chkSalesRep.fontsize(8)
+Gui.F_Cust_Management.cmdSave.create(button)
+Gui.F_Cust_Management.cmdSave.caption("Save")
+Gui.F_Cust_Management.cmdSave.visible(True)
+Gui.F_Cust_Management.cmdSave.size(855,375)
+Gui.F_Cust_Management.cmdSave.zorder(0)
+Gui.F_Cust_Management.cmdSave.position(200,1400)
+Gui.F_Cust_Management.cmdSave.enabled(True)
+Gui.F_Cust_Management.cmdSave.fontname("Arial")
+Gui.F_Cust_Management.cmdSave.fontsize(8)
+Gui.F_Cust_Management.cmdSave.event(Click,cmdsave_click)
+Gui.F_Audit..create
+Gui.F_Audit..caption("E-Invoicing Audit")
+Gui.F_Audit..size(5300,4600)
+Gui.F_Audit..position(0,0)
+Gui.F_Audit..event(UnLoad,f_audit_unload)
+Gui.F_Audit..alwaysontop(False)
+Gui.F_Audit..fontname("Arial")
+Gui.F_Audit..fontsize(8)
+Gui.F_Audit..forecolor(0)
+Gui.F_Audit..fontstyle(,,,)
+Gui.F_Audit..BackColor(-2147483633)
+Gui.F_Audit..controlbox(True)
+Gui.F_Audit..maxbutton(False)
+Gui.F_Audit..minbutton(True)
+Gui.F_Audit..mousepointer(0)
+Gui.F_Audit..moveable(True)
+Gui.F_Audit..sizeable(False)
+Gui.F_Audit..ShowInTaskBar(True)
+Gui.F_Audit..titlebar(True)
+Gui.F_Audit..MinX(0)
+Gui.F_Audit..MinY(0)
+Gui.F_Audit.lvwAudit.create(listview)
+Gui.F_Audit.lvwAudit.view(3)
+Gui.F_Audit.lvwAudit.addlistviewcolumn("Invoice No.",1500,0)
+Gui.F_Audit.lvwAudit.addlistviewcolumn("Date/Time",3000,0)
+Gui.F_Audit.lvwAudit.visible(True)
+Gui.F_Audit.lvwAudit.size(5000,4000)
+Gui.F_Audit.lvwAudit.zorder(0)
+Gui.F_Audit.lvwAudit.position(100,100)
+Gui.F_Audit.lvwAudit.enabled(True)
+Gui.F_Audit.lvwAudit.fontname("Arial")
+Gui.F_Audit.lvwAudit.fontsize(8)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+Variable.Global.sCustomer.Declare(String)
+Variable.Global.sContactEmail.Declare(String)
+Variable.Global.sInvoiceNo.Declare(String)
+Variable.Global.sOrderNo.Declare(String)
+Variable.Global.sCustPO.Declare(String)
+Variable.Global.sCustomerName.Declare(String)
+Variable.Global.sCompany.Declare(String)
+Variable.Global.iBIRUNID.Declare(Long,0)
+Variable.Global.iLOGID.Declare(Long,0)
+Variable.Global.bParamCheck.Declare(Boolean,False)
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+
+'SMC for Customer GOLIGHT
+'7/3/2010
+'Hooks:  14350, 30600, 30618, 15225, 14360
+
+'5/19/11 - SMC - Made a change in ProcessINV.  Made sure the e-Invoicing is searching specifically for an "e-Invoice" report with an INVOICE parameter.
+
+'F.Intrinsic.UI.Msgbox(V.Caller.Hook)
+'Renames Script 1 on Customer Master
+
+'2014.2 update and forward till it's overwritten
+'mod by TRT
+'we are adding in the enable logging, and require params and new bI funcitons for post 2013.1 BI.
+
+F.Intrinsic.Control.If(V.Caller.Hook,=,14350)
+	V.Passed.000201.Set("E-Invoicing")
+	F.Intrinsic.Control.End
+
+F.Intrinsic.Control.EndIf
+
+'Change Script 1 on CRM
+F.Intrinsic.Control.If(V.Caller.Hook,=,30600,"or",V.Caller.Hook,=,42900)
+	F.Intrinsic.Control.If(V.Passed.Data-Mode.String,<>,"5")
+		V.Passed.CRM-cmdGAB-0.Set("E-Invoice")
+	F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.End
+
+F.Intrinsic.Control.EndIf
+
+'Manage e-invoicing for selected customer in CRM - Script 1 (Hook 30618)
+F.Intrinsic.Control.If(V.Caller.Hook,=,30618,"or",V.Caller.Hook,=,42918)
+	F.Intrinsic.Control.If(V.Passed.DATA-CRM-CompTypeAlpha,=,"C")
+		F.Intrinsic.Control.If(V.Passed.CRM-cboContact,<>,"")
+			F.Intrinsic.Control.If(V.Passed.CRM-lblEmail,<>,"")
+				F.ODBC.Connection!conx.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+				V.Global.sCustomer.Set(V.Passed.DATA-CRM-CompID)
+				V.Global.sContactEmail.Set(V.Passed.CRM-lblEmail.Trim)
+				F.Intrinsic.Control.CallSub("CustManagement")
+			F.Intrinsic.Control.Else
+				F.Intrinsic.UI.Msgbox("Please select contact with an e-mail address.")
+				F.Intrinsic.Control.End
+
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.Else
+			F.Intrinsic.UI.Msgbox("Please select a contact")
+			F.Intrinsic.Control.End
+
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Else
+		F.Intrinsic.Control.End
+
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+'Emails invoices to contacts with e-invoicing option after batch invoicing and write log
+F.Intrinsic.Control.If(V.Caller.Hook,=,15225)
+	'mod by TRT
+	'we are adding in the enable logging, and require params and new bI funcitons for post 2013.1 BI.
+	F.Intrinsic.Debug.EnableLogging
+	F.ODBC.Connection!conx.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+	V.Global.sCustomer.Set(V.Passed.009001)
+	V.global.sInvoiceNo.Set(V.Passed.009000)
+	'read our global passed variabl since that holds the value, if false we know we need to check for report params that are required.
+	'else if it's true we know we don't have to check and can just do it withouth the param check.
+	F.Intrinsic.Variable.PassedExists("GLOBAL",V.Global.bParamCheck)
+	F.Intrinsic.Control.If(V.Global.bParamCheck,=,True)
+		F.Intrinsic.Control.If(V.Passed.Global.Trim,=,"True")
+			V.Global.bParamCheck.Set(True)
+		F.Intrinsic.Control.Else
+			V.Global.bParamCheck.Set(False)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Else
+		'set it back to false, the global passed variable doesn't exist within our hook for some reason.
+		V.Global.bParamCheck.Set(False)
+	F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.CallSub("EInvoicing")
+F.Intrinsic.Control.EndIf
+
+'E-Invoicing Audit
+F.Intrinsic.Control.If(V.Caller.Hook,=,14360)
+	F.Intrinsic.Control.If(V.Passed.000002,<>,"")
+		F.ODBC.Connection!conx.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+		V.Global.sCustomer.Set(V.Passed.000002)
+		V.Local.sTemp.Declare(String)
+		F.Intrinsic.String.Concat("E-Invoicing for ",V.Passed.000005,V.Local.sTemp)
+		Gui.F_Audit..Caption(V.Local.sTemp)
+		F.Intrinsic.Control.CallSub("Audit")
+	F.Intrinsic.Control.Else
+		F.Intrinsic.UI.Msgbox("Please select a customer")
+		F.Intrinsic.Control.End
+
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.Caller.Hook,=,1)
+	F.ODBC.Connection!conx.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+	V.Global.sCustomer.Set("001000")
+	V.global.sInvoiceNo.Set("000076")
+	F.Intrinsic.Control.CallSub("EInvoicing")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: ATG_AUTO_EMAIL_CUST.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.Debug.SetLA(V.Local.sError)
+	F.Intrinsic.Control.CallSub(unload)
+Function.Intrinsic.Control.EndIf
+
+Program.Sub.Main.End
+
+Program.Sub.Unload.Start
+F.Intrinsic.Control.SetErrorHandler("Unload_Err")
+F.Intrinsic.Control.ClearErrors
+
+F.ODBC.Connection!conx.Close
+f.Intrinsic.Control.End
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Unload_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: ATG_AUTO_EMAIL_CUST.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.Debug.SetLA(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Unload.End
+
+Program.Sub.CustManagement.Start
+F.Intrinsic.Control.SetErrorHandler("CustManagement_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sQuery.Declare(String)
+
+Gui.F_Cust_Management.txtContactEmail.Text(V.Global.sContactEmail)
+
+F.Intrinsic.String.Concat("SELECT * FROM ATG_CUSTOMER_EMAIL WHERE CUSTOMER='",V.Global.sCustomer,"' AND CUST_EMAIL='",V.Global.sContactEmail,"'",V.Local.sQuery)
+F.ODBC.Connection!conx.OpenRecordsetRO("rstCust",V.Local.sQuery)
+F.Intrinsic.Control.If(V.ODBC.conx!rstCust.EOF,<>,True)
+	Gui.F_Cust_Management.chkContact.value(1)
+	F.Intrinsic.Control.If(V.odbc.conx!rstCust.FieldValTrim!SALES_EMAIL,=,"False")
+		Gui.F_Cust_Management.chkSalesRep.Value(0)
+	F.Intrinsic.Control.Else
+		Gui.F_Cust_Management.chkSalesRep.Value(1)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.Else
+	Gui.F_Cust_Management.chkContact.Value(0)
+	Gui.F_Cust_Management.chkSalesRep.Value(0)
+	F.ODBC.conx!rstCust.Close
+
+	F.Intrinsic.String.Concat("SELECT * FROM ATG_CUSTOMER_EMAIL WHERE CUSTOMER='",V.Global.sCustomer,"'",V.Local.sQuery)
+	F.ODBC.Connection!conx.OpenRecordsetRO("rstCust",V.Local.sQuery)
+	F.Intrinsic.Control.If(V.ODBC.conx!rstCust.EOF,<>,True)
+		F.Intrinsic.Control.If(V.ODBC.conx!rstCust.FieldValTrim!SALES_EMAIL,=,True)
+			Gui.F_Cust_Management.chkSalesRep.Value(1)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rstCust.close
+
+Gui.F_Cust_Management..Show
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("CustManagement_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: ATG_AUTO_EMAIL_CUST.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.Debug.SetLA(V.Local.sError)
+	F.Intrinsic.Control.CallSub(unload)
+Function.Intrinsic.Control.EndIf
+
+Program.Sub.CustManagement.End
+
+Program.Sub.cmdsave_click.Start
+F.Intrinsic.Control.SetErrorHandler("cmdsave_click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sQuery.Declare(String)
+
+F.Intrinsic.Control.If(V.Screen.F_Cust_Management!chkContact.Value,=,1)
+	F.Intrinsic.String.Concat("SELECT * FROM ATG_CUSTOMER_EMAIL WHERE CUSTOMER='",V.Global.sCustomer,"' AND CUST_EMAIL='",V.Global.sContactEmail,"'",V.Local.sQuery)
+	F.ODBC.Connection!conx.OpenRecordsetRW("rstCust",V.Local.sQuery)
+	F.Intrinsic.Control.If(V.ODBC.conx!rstCust.EOF,=,True)
+		F.ODBC.conx!rstCust.AddNew
+		F.ODBC.conx!rstCust.Set!CUSTOMER(V.Global.sCustomer)
+		F.ODBC.conx!rstCust.Set!CUST_EMAIL(V.Global.sContactEmail)
+		F.ODBC.conx!rstCust.Set!SALES_EMAIL(V.Screen.F_Cust_Management!chkSalesRep.Value)
+		F.ODBC.conx!rstCust.Update
+	F.Intrinsic.Control.EndIf
+	F.ODBC.conx!rstCust.close
+F.Intrinsic.Control.Else
+	F.Intrinsic.String.Concat("DELETE FROM ATG_CUSTOMER_EMAIL WHERE CUSTOMER='",V.Global.sCustomer,"' AND CUST_EMAIL='",V.Global.sContactEmail,"'",V.Local.sQuery)
+	F.ODBC.connection!conx.Execute(V.Local.sQuery)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.Screen.F_Cust_Management!chkSalesRep.Value,=,1)
+	F.Intrinsic.String.Concat("UPDATE ATG_CUSTOMER_EMAIL SET SALES_EMAIL=1 WHERE CUSTOMER='",V.Global.sCustomer,"'",V.Local.sQuery)
+	F.ODBC.connection!conx.Execute(V.Local.sQuery)
+F.Intrinsic.Control.Else
+	F.Intrinsic.String.Concat("UPDATE ATG_CUSTOMER_EMAIL SET SALES_EMAIL=0 WHERE CUSTOMER='",V.Global.sCustomer,"'",V.Local.sQuery)
+	F.ODBC.connection!conx.Execute(V.Local.sQuery)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.CallSub("Unload")
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmdsave_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: ATG_AUTO_EMAIL_CUST.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.Debug.SetLA(V.Local.sError)
+	F.Intrinsic.Control.CallSub(unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.cmdsave_click.End
+
+Program.Sub.EInvoicing.Start
+F.Intrinsic.Control.SetErrorHandler("eInvoicing_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+V.Local.sQuery.Declare(String)
+V.Local.sContacts.Declare(String)
+V.Local.sContacts.Redim(-1,-1)
+V.Local.sDelete.Declare(String)
+V.Local.sDelete.Redim(-1,-1)
+V.Local.iUB.Declare(Long,-1)
+V.Local.bExists.Declare(Boolean)
+V.Local.iC.Declare(Long)
+V.Local.iEmailSalesRep.Declare(Long,-1)
+V.Local.sEmail.Declare(String)
+V.local.sTemp.Declare(String)
+V.Local.sUserName.Declare(String)
+V.Local.sUserEmail.Declare(String)
+V.Local.iRecord.Declare(Long,-1)
+V.Local.sInvoicePath.Declare(String)
+V.Local.sBody.Declare(String)
+V.Local.sSubject.Declare(String)
+V.Local.sFile.Declare(String)
+V.Local.bFileExists.Declare(Boolean)
+V.Local.iType.Declare(Long)
+V.Local.iRet.Declare(Long)
+v.Local.sSenderInfo.Declare(string)
+v.Local.bValidSenderEmail.Declare(boolean)
+v.Local.sCheck.Declare(string)
+v.Local.sCheckDomain.Declare(string)
+
+F.Intrinsic.Debug.SetLA("Emailing Invoice No ",V.Global.sInvoiceNo," to customer ",V.Global.sCustomer)
+F.Intrinsic.Control.CallSub(Check_econtacts_meth)
+V.Local.iType.Set(V.Args.iType)
+
+'Gets all Customer Contacts and builds into sContacts array
+F.Intrinsic.Control.If(V.Local.iType,=,0)
+	F.Intrinsic.String.Concat("SELECT EMAIL1, NAME FROM CONTACT WHERE TYPE='C' AND CUST='",V.Global.sCustomer,"'",V.Local.sQuery)
+	F.ODBC.Connection!conx.OpenRecordsetRO("rstCust",V.Local.sQuery)
+	F.Intrinsic.Control.DoUntil(V.ODBC.conx!rstCust.EOF,=,True)
+		F.Intrinsic.Math.Add(V.Local.iUB,1,V.Local.iUB)
+		F.Intrinsic.Control.If(V.Local.iUB,=,0)
+			V.Local.sContacts.Redim(0,0)
+		F.Intrinsic.Control.Else
+			V.Local.sContacts.RedimPreserve(0,V.Local.iUB)
+		F.Intrinsic.Control.EndIf
+		F.Intrinsic.String.Concat(V.ODBC.conx!rstCust.FieldValTrim!EMAIL1,"*!*",V.ODBC.conx!rstCust.FieldValTrim!NAME,V.Local.stemp)
+		'F.Intrinsic.String.Concat(V.ODBC.conx!rstCust.FieldValTrim!Name,"*!*",V.ODBC.conx!rstCust.FieldValTrim!Email1,V.Local.sTemp)
+		V.Local.sContacts(v.Local.iUB).Set(V.Local.sTemp)
+		F.ODBC.conx!rstCust.MoveNext
+	F.Intrinsic.Control.Loop
+	F.ODBC.conx!rstCust.Close
+F.Intrinsic.Control.EndIf
+
+V.Local.iUB.Set(-1)
+F.Intrinsic.String.Concat("SELECT * FROM ATG_CUSTOMER_EMAIL WHERE CUSTOMER='",V.Global.sCustomer,"'",V.Local.sQuery)
+F.ODBC.connection!conx.OpenRecordsetRW("rstCust",V.Local.sQuery)
+F.Intrinsic.Control.DoUntil(V.ODBC.conx!rstCust.EOF,=,True)
+	F.Intrinsic.String.occurs(V.ODBC.conx!rstCust.FieldValTrim!Cust_Email,"@",V.Local.iRet)
+	F.Intrinsic.Control.If(V.Local.iRet,>,0)
+	
+
+		'If this is the first loop, iEmailSalesRep=-1.  After that, iEmailSalesRep will be set as either 0 or 1, depending on the option set for the customer.  So in the first loop, where iEmailSalesRep=1, is where we process the invoice, so it only happens once.
+		F.Intrinsic.Control.If(V.Local.iEmailSalesRep,=,-1)
+			'Generates Invoice PDF
+			F.Intrinsic.String.Concat("SELECT ORDER_NO FROM ORDER_HIST_HEAD WHERE INVOICE='",V.Global.sInvoiceNo,"'",V.Local.sQuery)
+			F.ODBC.Connection!conx.OpenRecordsetRO("rstOrder",V.Local.sQuery)
+			F.Intrinsic.Control.If(V.ODBC.conx!rstOrder.EOF,<>,True)
+				V.Global.sOrderNo.Set(V.ODBC.conx!rstOrder.FieldValTrim!ORDER_NO)
+				'Gets e-Invoicing Body Text
+				F.Intrinsic.Control.CallSub(Popdefaulttext)
+				V.Local.sBody.Set(V.Args.sBody)
+				V.Local.sSubject.Set(V.Args.sSubject)
+				F.Intrinsic.Control.CallSub("ProcessInv")
+				V.Local.sInvoicePath.Set(V.Args.sAttach)
+			F.Intrinsic.Control.Else
+				F.Intrinsic.UI.Msgbox("Unable to find order number. Please contact Global Shop","e-Invoicing")
+				F.Intrinsic.Control.CallSub(Unload)
+			F.Intrinsic.Control.EndIf
+			F.ODBC.conx!rstOrder.Close
+
+			F.Intrinsic.Control.If(V.ODBC.conx!rstCust.fieldvaltrim!SALES_EMAIL,=,True)
+				V.Local.iEmailSalesRep.Set(1)
+				
+'****ADDED JAN 30, 2017 Customer_Master changed to Order_Hist_Head with salesman column
+				F.Intrinsic.String.Concat("SELECT S.SALESPERSON AS EMAIL, N.SALESPERSON FROM SALESPEOPLE S, Order_Hist_Head C, V_SALESPEOPLE N WHERE N.SALESPERSON_CODE=S.SALESPERSON_CODE AND C.SALESMAN = S.SALESPERSON_CODE AND C.Invoice='",V.Global.sInvoiceNo,"' AND S.KEY1='AR2' AND S.KEY2='SLM' and salesman != '101' and salesman != '001' ",V.Local.sQuery)
+				F.ODBC.Connection!conx.OpenRecordsetRO("rstSalesperson",V.Local.sQuery)
+				F.Intrinsic.Control.If(V.ODBC.conx!rstSalesperson.EOF,<>,True)
+'******Newly added
+					V.Local.sTemp.Redim(0,1)
+					V.Local.sTemp(0).Set(V.ODBC.conx!rstSalesperson.FieldValTrim!SALESPERSON)
+					V.Local.sTemp(1).Set(V.ODBC.conx!rstSalesperson.FieldValTrim!EMAIL)
+					'email
+'****ADDED JAN 30, 2017 we take sender name and email from a text file					
+'					F.Global.Security.GetFullName(V.Caller.User,V.Local.sUserName)
+'					F.Global.Security.GetUserEmail(V.Caller.User,V.Local.sUserEmail)
+					'Read and check email
+					F.Intrinsic.Control.DoUntil(V.Local.bValidSenderEmail,=,True)
+						Function.Intrinsic.File.FileToStringArray("\\DURAMI01DB01\Apps\GLOBAL\FILES\Sender.txt", "*!*", v.Local.sSenderInfo) 
+						v.Local.sUserName.Set(v.Local.sSenderInfo(0))
+						v.Local.sUserEmail.Set(v.Local.sSenderInfo(1))
+						'Checking for valid email
+						F.Intrinsic.String.Split(V.Local.sUserEmail.Trim,"@",V.Local.sCheck)
+						F.Intrinsic.Control.If(V.Local.sCheck.UBound,<>,1)	
+							F.Intrinsic.UI.Msgbox("Invalid email address @. Please modify the file Sender.txt","Invalid Email")		
+						F.Intrinsic.Control.Else	
+							F.Intrinsic.String.Split(V.Local.sCheck(1),".",V.Local.sCheckDomain)
+							F.Intrinsic.Control.If(V.Local.sCheckDomain.UBound,<,1)
+								F.Intrinsic.UI.Msgbox("Invalid email address after @. Please modify the file Sender.txt","Invalid Email")			
+							F.Intrinsic.Control.Else
+								v.Local.bValidSenderEmail.Set(True)
+							f.Intrinsic.Control.Endif
+						F.Intrinsic.Control.EndIf
+					F.Intrinsic.Control.Loop	
+
+'					F.Intrinsic.Control.If(V.Local.sUserEmail,=,"")
+'						V.Local.sUserName.Set(V.Local.sTemp(1))
+'						V.Local.sUserEmail.Set(V.Local.sTemp(0))
+'					F.Intrinsic.Control.EndIf
+	'				F.Global.Messaging.CreateEMMessage(V.ODBC.conx!rstSalesperson.FieldValTrim!EMAIL,V.ODBC.conx!rstSalesperson.FieldValTrim!SALESPERSON,V.ODBC.conx!rstSalesperson.FieldValTrim!EMAIL,V.ODBC.conx!rstSalesperson.FieldValTrim!SALESPERSON,V.Local.sSubject,V.Local.sBody)
+					F.Intrinsic.Debug.SetLA("Emailing Sales Rep: ",V.ODBC.conx!rstSalesperson.FieldValTrim!SALESPERSON," email: ",V.ODBC.conx!rstSalesperson.FieldValTrim!EMAIL)
+					F.Intrinsic.Control.If(V.ODBC.conx!rstSalesperson.FieldValTrim!EMAIL,<>,"")
+						F.Global.Messaging.CreateEMMessage(V.ODBC.conx!rstSalesperson.FieldValTrim!EMAIL,V.ODBC.conx!rstSalesperson.FieldValTrim!SALESPERSON,V.Local.sUserEmail,V.Local.sUserName,V.Local.sSubject,V.Local.sBody,V.Local.sInvoicePath,False)
+					F.Intrinsic.Control.EndIf
+'********
+				F.Intrinsic.Control.EndIf
+				F.ODBC.conx!rstSalesperson.Close
+			F.Intrinsic.Control.Else
+				V.Local.iEmailSalesRep.Set(0)
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.EndIf
+
+		'Checks to see if the contact e-mail written in ATG_CUSTOMER_EMAIL is still a contact e-mail for the customer in CRM.  Otherwise, it will not send an e-mail out to that address, and address to the "Delete" array, which is purged from ATG_CUSTOMER_EMAIL at the end of the subroutine
+		F.intrinsic.control.if(V.local.iType,=,0)
+			V.Local.bExists.Set(False)
+			F.Intrinsic.Control.For(V.Local.iC,0,V.Local.sContacts.UBound,1)
+				F.Intrinsic.String.Split(V.Local.sContacts(v.Local.iC).Trim,"*!*",V.Local.sTemp)
+				F.Intrinsic.Control.If(V.ODBC.conx!rstCust.FieldValTrim!CUST_EMAIL,=,V.Local.sTemp(0))
+					V.Local.bExists.Set(True)
+					F.Intrinsic.Control.ExitFor(V.Local.iC)
+				F.Intrinsic.Control.EndIf
+			F.Intrinsic.Control.Next(V.Local.iC)
+		F.Intrinsic.Control.Else
+			V.Local.bExists.Set(True)
+			V.Local.sTemp.Redim(0,1)
+			V.Local.sTemp(0).Set(V.ODBC.conx!rstCust.FieldValTrim!CUST_EMAIL)
+			V.Local.sTemp(1).Set(V.ODBC.conx!rstCust.FieldValTrim!CUST_EMAIL)
+		F.Intrinsic.Control.EndIf
+
+		F.Intrinsic.Control.If(V.Local.bExists,=,True)
+			'email
+'			F.Global.Security.GetFullName(V.Caller.User,V.Local.sUserName)
+'			F.Global.Security.GetUserEmail(V.Caller.User,V.Local.sUserEmail)
+'			F.Intrinsic.Control.If(V.Local.sUserEmail,=,"")
+'				V.Local.sUserName.Set(V.Local.sTemp(1))
+'				V.Local.sUserEmail.Set(V.Local.sTemp(0))
+'			F.Intrinsic.Control.EndIf
+			
+			'Get username, useremail from the custom file
+			F.Intrinsic.Control.DoUntil(V.Local.bValidSenderEmail,=,True)
+				Function.Intrinsic.File.FileToStringArray("\\DURAMI01DB01\Apps\GLOBAL\FILES\Sender.txt", "*!*", v.Local.sSenderInfo) 
+				v.Local.sUserName.Set(v.Local.sSenderInfo(0))
+				v.Local.sUserEmail.Set(v.Local.sSenderInfo(1))
+				'Checking for valid email
+				F.Intrinsic.String.Split(V.Local.sUserEmail.Trim,"@",V.Local.sCheck)
+				F.Intrinsic.Control.If(V.Local.sCheck.UBound,<>,1)	
+					F.Intrinsic.UI.Msgbox("Invalid email address @. Please modify the file Sender.txt","Invalid Email")		
+				F.Intrinsic.Control.Else	
+					F.Intrinsic.String.Split(V.Local.sCheck(1),".",V.Local.sCheckDomain)
+					F.Intrinsic.Control.If(V.Local.sCheckDomain.UBound,<,1)
+						F.Intrinsic.UI.Msgbox("Invalid email address after @. Please modify the file Sender.txt","Invalid Email")			
+					F.Intrinsic.Control.Else
+						v.Local.bValidSenderEmail.Set(True)
+					f.Intrinsic.Control.Endif
+				F.Intrinsic.Control.EndIf
+			F.Intrinsic.Control.Loop
+
+	'		F.Global.Messaging.CreateEMMessage(V.Local.sTemp(0),V.Local.sTemp(1),V.Local.sUserEmail,V.Local.sUserName,V.Local.sSubject,V.Local.sBody)
+			F.Global.Messaging.CreateEMMessage(V.Local.sTemp(0),V.Local.sTemp(1),V.Local.sUserEmail,V.Local.sUserName,V.Local.sSubject,V.Local.sBody,V.Local.sInvoicePath,False)
+			'write record
+			F.Intrinsic.Control.If(V.Local.iRecord,=,-1)
+				F.ODBC.Connection!conx.OpenRecordsetRW("rstRecord","SELECT * FROM ATG_CUST_EMAIL_HIST")
+				
+				F.ODBC.conx!rstRecord.AddNew
+				F.ODBC.conx!rstRecord.Set!CUSTOMER(V.Global.sCustomer)
+				F.ODBC.conx!rstRecord.Set!INVOICE_NO(V.global.sInvoiceNo)
+				F.ODBC.conx!rstRecord.Set!EMAIL_DATE(V.Ambient.Now)
+
+				F.ODBC.conx!rstRecord.Update
+				F.ODBC.conx!rstRecord.Close
+				V.Local.iRecord.Set(0)
+			F.Intrinsic.Control.Endif
+		F.Intrinsic.Control.Else
+			F.Intrinsic.Math.Add(V.Local.iUB,1,V.Local.iUB)
+			F.Intrinsic.Control.If(V.Local.iUB,=,0)
+				V.Local.sDelete.Redim(0,0)
+			F.Intrinsic.Control.Else
+				V.Local.sDelete.RedimPreserve(0,V.Local.iUB)
+			F.Intrinsic.Control.EndIf
+			V.Local.sDelete(v.Local.iUB).Set(V.ODBC.conx!rstCust.FieldValTrim!CUST_EMAIL)
+		F.Intrinsic.Control.EndIf
+
+	F.Intrinsic.Control.EndIf
+	F.ODBC.conx!rstCust.MoveNext
+F.Intrinsic.Control.Loop
+F.ODBC.conx!rstCust.Close
+	
+F.Intrinsic.Control.For(V.Local.iC,0,V.Local.sDelete.UBound,1)
+	F.Intrinsic.String.Concat("DELETE FROM ATG_CUSTOMER_EMAIL WHERE CUSTOMER='",V.Global.sCustomer,"' AND CUST_EMAIL='",V.Local.sDelete(v.Local.iC),"'",V.Local.sQuery)
+	F.ODBC.connection!conx.Execute(V.Local.sQuery)
+F.Intrinsic.Control.Next(V.Local.iC)
+
+F.Intrinsic.Control.CallSub("Unload")
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("EInvoicing_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: ATG_AUTO_EMAIL_CUST.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.Debug.SetLA(V.Local.sError)
+	F.Intrinsic.Control.CallSub(unload)
+Function.Intrinsic.Control.EndIf
+
+Program.Sub.EInvoicing.End
+
+Program.Sub.f_audit_unload.Start
+F.Intrinsic.Control.SetErrorHandler("f_audit_unload_Err")
+F.Intrinsic.Control.ClearErrors
+
+f.Intrinsic.Control.CallSub("Unload")
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("f_audit_unload_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: ATG_AUTO_EMAIL_CUST.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.Debug.SetLA(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+Program.Sub.f_audit_unload.End
+
+Program.Sub.f_audit_resize.Start
+Program.Sub.f_audit_resize.End
+
+Program.Sub.Audit.Start
+F.Intrinsic.Control.SetErrorHandler("Audit_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sQuery.Declare(String)
+
+F.Intrinsic.String.Concat("SELECT * FROM ATG_CUST_EMAIL_HIST WHERE CUSTOMER='",V.Global.sCustomer,"' ORDER BY INVOICE_NO ASC, EMAIL_DATE ASC",V.Local.sQuery)
+F.ODBC.Connection!conx.OpenRecordsetRO("rstAudit",V.Local.sQuery)
+F.Intrinsic.Control.DoUntil(V.ODBC.conx!rstAudit.EOF,=,True)
+	Gui.F_Audit.lvwAudit.AddListItem(V.ODBC.conx!rstAudit.FieldValTrim!LOG_ID,V.ODBC.conx!rstAudit.FieldValTrim!INVOICE_NO)
+	Gui.F_Audit.lvwAudit.SetListItemSubItemText(V.ODBC.conx!rstAudit.FieldValTrim!LOG_ID,1,V.ODBC.conx!rstAudit.FieldValTrim!EMAIL_DATE)
+	F.ODBC.conx!rstAudit.MoveNext
+F.Intrinsic.Control.Loop
+
+Gui.F_Audit..Show
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Audit_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: ATG_AUTO_EMAIL_CUST.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.Debug.SetLA(V.Local.sError)
+	F.Intrinsic.Control.CallSub(unload)
+Function.Intrinsic.Control.EndIf
+
+Program.Sub.Audit.End
+
+Program.Sub.ProcessInv.Start
+F.Intrinsic.Control.SetErrorHandler("ProcessInv_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+V.Local.sParamName.Declare(String)
+V.Local.sParamVal.Declare(String)
+V.Local.sTemp.Declare(String)
+V.Local.sPN.Declare(String)
+V.Local.sPV.Declare(String)
+V.Local.sCallParams.Declare(String)
+V.Local.sAttach.Declare(String)
+V.Local.sVersion.Declare(String)
+V.Local.iRptID.Declare(Long)
+V.Local.sPath.Declare(String)
+V.Local.bExists.Declare(Boolean)
+V.Local.bReportFound.Declare(Boolean)
+V.Local.sQuery.Declare(String)
+V.Local.sReport.Declare(String)
+V.Local.bTracking.Declare(Boolean)
+V.Local.sTracking.Declare(String)
+V.Local.bFile.Declare(Boolean)
+V.Local.sRequiredParams.Declare(String)
+V.Local.sRetFile.Declare(String)
+'required report params
+F.Intrinsic.Control.If(V.Global.bParamCheck,=,False)
+	V.Local.sRequiredParams.Set("TERMINAL*!*REPORTID*!*INVOICE")
+	F.Intrinsic.String.Build("{0}\E_INVOICE_{1}",V.System.Temp,V.Caller.Terminal,V.Local.sRetFile)
+F.Intrinsic.Control.EndIf
+
+'Set attachment filename and path
+F.Intrinsic.String.Concat(V.Caller.PluginsDir,"\Invoices\",V.Global.sInvoiceNo,"-",V.Global.sOrderNo,".pdf",V.Local.sAttach)
+
+'Get GSS version for parameters
+F.Intrinsic.String.Left(V.Caller.GSSVersion,4,V.Local.sVersion)
+
+'Call GS program to build BI table data
+F.Intrinsic.String.Concat(V.Global.sInvoiceNo,"!*!|~|CRYSTAL-OVERRIDE|~|",V.Local.sCallParams)
+F.Intrinsic.Debug.SetLA("Generating Invoice BI data.  Using Callwrapper 200900: ",V.Local.sCallParams)
+'F.Intrinsic.Debug.CallWrapperDebugEnable
+F.Global.General.CallWrapperSyncBIO(200900,V.Local.sCallParams)
+'F.Intrinsic.Debug.CallWrapperDebugDIsable
+'F.Global.General.CallWrapperSync(200900,V.global.sInvoice)
+'F.Intrinsic.Debug.Stop
+'Call BI Order Acknowledgement report
+F.Intrinsic.Control.CallSub(Getrptid)
+
+
+
+V.Local.bReportFound.Set(False)
+F.ODBC.Connection!conx.TableExists("ATG_EINVOICE_CCC",V.Local.bExists)
+F.Intrinsic.Control.If(V.Local.bExists,=,True)
+	F.Intrinsic.String.Concat("SELECT * FROM ATG_EINVOICE_CCC WHERE COMPANY_CODE='",V.Caller.CompanyCode,"'",V.Local.sQuery)
+	F.ODBC.Connection!conx.OpenRecordsetRO("rstReport",V.Local.sQuery)
+	F.Intrinsic.Control.If(V.ODBC.conx!rstReport.EOF,<>,True)
+		V.Local.bReportFound.Set(True)
+		F.Intrinsic.String.Concat("E-INVOICE-",V.Caller.CompanyCode,V.Local.sReport)
+		V.Local.sPath.Set(V.ODBC.conx!rstReport.FieldValTrim!REPORT_LOC)
+		F.Intrinsic.File.Exists(V.Local.sPath,V.Local.bExists)
+		F.Intrinsic.Control.If(V.Local.bExists,<>,True)
+			F.Intrinsic.String.Right(V.Local.sPath,4,V.Local.sTemp)
+			F.Intrinsic.Control.If(V.Local.sTemp.UCase,<>,".RPT")
+				F.Intrinsic.String.Concat(V.Local.sPath,".rpt",V.Local.sPath)
+				F.Intrinsic.File.Exists(V.Local.sPath,V.Local.bExists)
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.If(V.Local.bExists,=,True)
+			F.Global.BI.InitializeReport(V.Local.sReport,V.Local.sPath,V.Local.iRptID)
+			F.Intrinsic.Control.If(V.Local.iRptID,=,-1)
+				F.Intrinsic.String.Concat("Unable to initialize a report for e-Invoicing in the following location setup for company code ",V.Caller.CompanyCode," in ATG_EINVOICE_CCC: ",V.Local.sPath,".  Refer to GAB Forum for more info.  Hotfix #222 may need to be applied.",V.Local.sPath)
+				F.Intrinsic.UI.Msgbox(V.Local.sPath,"e-Invoicing")
+				F.Intrinsic.UI.Msgbox("Please set up E-Invoice-CCC.rpt.  Refer to GAB Forum for more info.")
+				F.Intrinsic.Control.CallSub(Unload)
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.Else
+			F.Intrinsic.String.Concat("Unable to find e-Invoice in the following location setup for company code ",V.Caller.CompanyCode," in ATG_EINVOICE_CCC: ",V.Local.sPath,".  Refer to GAB Forum for more info",V.Local.sPath)
+			F.Intrinsic.UI.Msgbox(V.Local.sPath,"e-Invoicing")
+			F.Intrinsic.Control.CallSub(Unload)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+	F.ODBC.conx!rstReport.Close
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.Local.bReportFound,=,False)
+	F.Global.BI.GetIDFromName("E-INVOICE.rpt",V.Local.iRptID)
+	F.Intrinsic.Control.If(V.Local.iRptID,=,-1)
+		F.Intrinsic.String.Concat(V.Caller.BusintDir,"\Custom\E-INVOICE.RPT",V.Local.sPath)
+		F.Intrinsic.File.Exists(V.Local.sPath,V.Local.bExists)
+		F.Intrinsic.Control.If(V.Local.bExists,=,False)
+			F.Intrinsic.UI.Msgbox("Please set up E-Invoice.rpt.  Refer to GAB Forum for more info.")
+			F.Intrinsic.Control.CallSub(Unload)
+		F.Intrinsic.Control.EndIf
+		F.Global.BI.InitializeReport("E-INVOICE.rpt",V.Local.sPath,V.Local.iRptID)
+		F.Intrinsic.Control.If(V.Local.iRptID,=,-1)
+			F.Intrinsic.UI.Msgbox("Please set up E-Invoice.rpt.  Refer to GAB Forum for more info.")
+			F.Intrinsic.Control.CallSub(Unload)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.CallSub("Check_Table_Data","RptID",V.Args.RptID,"CustID",V.Local.iRptID)
+F.Intrinsic.Control.If(V.Args.bDataExists,=,False)
+	F.Intrinsic.Control.CallSub(Unload)
+F.Intrinsic.Control.EndIf
+'getting run id and log id
+'mod by trt.
+
+F.Global.BI.GetRunID(V.Global.iBIRUNID)
+F.Global.BI.StartLogging(V.Global.iBIRUNID,V.local.iRptID,-1,"E-Invoice.rpt",V.Global.iLOGID)
+
+'Checking to see if Print Tracking number was selected from Maintain Accuforms Options File - MLA
+F.Global.General.ReadOption(400859,0,False,V.Local.bTracking)
+'F.Intrinsic.Control.If(V.Local.bTracking,=,True)
+'	F.Intrinsic.String.Concat("Select TRACKING_NO from V_ORDER_HIST_HEAD where ORDER_NO = '",V.Global.sOrderNo,"'",V.Local.sQuery)
+'	F.ODBC.Connection!conx.OpenLocalRecordsetRO("rstTrack",V.Local.sQuery)
+'	F.Intrinsic.Control.If(V.ODBC.conx!rstTrack.EOF,=,True)
+'		V.Local.sTracking.Set("")
+'	F.Intrinsic.Control.Else
+'		V.Local.sTracking.Set(V.ODBC.conx!rstTrack.FieldValTrim!TRACKING_NO)
+'	F.Intrinsic.Control.EndIf
+'F.Intrinsic.Control.Else
+'	V.Local.sTracking.Set("")
+'F.Intrinsic.Control.EndIf
+
+'The new argument is just added on at the end if I remember correctly to RunReportFromPreproc, and it's just a delimited string *!* of the require param names.,per mitch
+
+
+f.Intrinsic.Control.If(V.Caller.GSSVersion.float,>=,2011.1)
+	F.Intrinsic.Control.If(V.Local.bTracking,=,True)
+		V.Local.sPN.Set("REPORTID*!*TERMINAL*!*ORDERNO*!*PROGRAM*!*TRACK*!*IVCTYPE*!*PRTSHIP*!*PRTORD*!*INVOICE*!*TRACKING")
+		F.Intrinsic.String.Concat(V.args.RptID,"*!*",V.caller.Terminal,"*!*",V.Global.sOrderNo,"*!*",V.Caller.Caller,"*!*Y*!**!**!**!*",V.Global.sInvoiceNo,"*!*",V.Local.sTracking,V.Local.sPV)
+	F.Intrinsic.Control.Else
+		V.Local.sPN.Set("REPORTID*!*TERMINAL*!*ORDERNO*!*PROGRAM*!*TRACK*!*IVCTYPE*!*PRTSHIP*!*PRTORD*!*INVOICE*!*TRACKING")
+		F.Intrinsic.String.Concat(V.args.RptID,"*!*",V.caller.Terminal,"*!*",V.Global.sOrderNo,"*!*",V.Caller.Caller,"*!**!**!**!**!*",V.Global.sInvoiceNo,"*!*",V.Local.sTracking,V.Local.sPV)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.Else
+	V.Local.sPN.Set("REPORTID*!*TERMINAL*!*INVOICE*!*COMMIVC*!*TRACKING")
+	F.Intrinsic.String.Concat(V.args.RptID,"*!*",V.caller.Terminal,"*!*",V.Global.sInvoiceNo,"*!**!*",V.Local.sTracking,V.Local.sPV)
+F.Intrinsic.Control.EndIf
+
+'F.Intrinsic.String.Split(V.Local.sPN,"*!*",V.Local.sParamName)
+'F.Intrinsic.String.Split(V.Local.sPV,"*!*",V.Local.sParamVal)
+'
+'F.Global.BI.SaveReport(000055,0,V.Local.sParamName,V.Local.sParamVal,V.Local.sAttach)
+'F.Global.BI.SaveReport(V.Local.iRptID,1,V.Local.sParamName,V.Local.sParamVal,V.Local.sAttach)
+'stop logging
+
+F.Global.BI.StopLogging(V.Global.iLOGID)
+F.Intrinsic.Control.If(V.Global.bParamCheck,=,False)
+	F.Global.BI.RunReportPreProcessor(V.Global.iBIRUNID,V.Global.iLOGID,V.Local.sPN,V.Local.sPV,"E-Invoice.rpt",4,True,"",-1,"",0,V.Local.sAttach,"",V.Local.sRequiredParams,V.Local.sRetFile,V.Global.iLOGID)
+F.Intrinsic.Control.Else
+	'paramsfore-invoicinghavebeencheckedinapreviousinvoicewithinthisbatchsowearegoodtogoandnothavetocheckthevalues.
+	F.Global.BI.RunReportPreProcessor(V.Global.iBIRUNID,V.Global.iLOGID,V.Local.sPN,V.Local.sPV,"E-Invoice.rpt",4,True,"",-1,"",0,V.Local.sAttach,"",V.Global.iLOGID)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.File.Exists(V.Local.sAttach,V.Local.bFile)
+F.Intrinsic.Control.If(V.Local.bFile,=,False)
+	F.Intrinsic.UI.Msgbox("Invoice PDF was not created. Please contact Global Shop.")
+	V.Passed.Global.Set("False")
+	F.Intrinsic.Control.CallSub(Unload)
+F.Intrinsic.Control.EndIf
+
+
+F.Intrinsic.Variable.AddRV("sAttach",V.Local.sAttach)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("ProcessInv_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: ATG_AUTO_EMAIL_CUST.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.Debug.SetLA(V.Local.sError)
+	F.Intrinsic.Control.CallSub(unload)
+Function.Intrinsic.Control.EndIf
+
+Program.Sub.ProcessInv.End
+
+Program.Sub.GetRptID.Start
+F.Intrinsic.Control.SetErrorHandler("GetRptID_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sQuery.Declare(String)
+V.Local.sReportID.Declare(String)
+
+F.Intrinsic.String.concat("SELECT * FROM V_PRT_LASER_INVOICE WHERE INVOICE_NO='",V.Global.sInvoiceNo,"'",V.Local.sQuery)
+F.ODBC.Connection!conx.OpenRecordsetRO("rstRptID",V.Local.sQuery)
+F.Intrinsic.Control.If(V.ODBC.conx!rstRptID.EOF,<>,True)
+	V.local.sReportID.set(V.odbc.conx!rstRptID.fieldvaltrim!RPTID)
+F.Intrinsic.Control.Else
+	F.Intrinsic.UI.Msgbox("Unable to find Invoice Data.  Please contact Global Shop.")
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rstRptID.Close
+
+F.Intrinsic.Variable.AddRV("RptID",V.Local.sReportID)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("GetRptID_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: ATG_AUTO_EMAIL_CUST.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.Debug.SetLA(V.Local.sError)
+	F.Intrinsic.Control.CallSub(unload)
+Function.Intrinsic.Control.EndIf
+
+Program.Sub.GetRptID.End
+
+Program.Sub.Check_Table_Data.Start
+V.Local.sQuery.Declare(String)
+V.Local.sError.Declare(String)
+V.Local.bExists.Declare(Boolean)
+
+F.Intrinsic.Control.SetErrorHandler("Sub_Err")
+F.Intrinsic.Control.ClearErrors
+
+F.Intrinsic.Debug.SetLA("Checking Invoice Table Data.  Rpt ID=",V.Args.RptID," Terminal=",V.Caller.Terminal," Invoice No= ",V.Global.sInvoiceNo," Custom RptID=",V.Args.CustID)
+
+F.Intrinsic.String.Concat("SELECT * FROM PRT_LASER_INVOICE WHERE TERMINAL_NO='",V.Caller.Terminal,"' AND RPTID='",V.Args.RptID,"' AND INVOICE_NO='",V.Global.sInvoiceNo,"'",V.Local.sQuery)
+F.ODBC.Connection!conx.OpenRecordsetRO("rstCheck",V.Local.sQuery)
+F.Intrinsic.Control.If(V.ODBC.conx!rstCheck.EOF,=,True)
+	F.ODBC.conx!rstCheck.Close
+	F.Intrinsic.String.Concat("SELECT * FROM PRT_LASER_INVOICE WHERE RPTID='",V.Args.RptID,"' AND INVOICE_NO='",V.Global.sInvoiceNo,"'",V.Local.sQuery)
+	F.ODBC.Connection!conx.OpenRecordsetRO("rstCheck",V.Local.sQuery)
+	F.Intrinsic.Control.If(V.ODBC.conx!rstCheck.EOF,=,True)
+		F.ODBC.conx!rstCheck.Close
+		F.Intrinsic.String.Concat("SELECT * FROM PRT_LASER_INVOICE WHERE INVOICE_NO='",V.Global.sInvoiceNo,"'",V.Local.sQuery)
+		F.ODBC.Connection!conx.OpenRecordsetRO("rstCheck",V.Local.sQuery)
+		F.Intrinsic.Control.If(V.ODBC.conx!rstCheck.EOF,=,True)
+'			F.ODBC.conx!rstCheck.Close
+			F.Intrinsic.Debug.SetLA("There has been an issue when generating e-Invoice.  Invoice #",V.Global.sInvoiceNo," not found.  Please contact Global Shop.")
+			F.Intrinsic.UI.Msgbox(V.Ambient.LastAction)
+		F.Intrinsic.Control.Else
+			F.Intrinsic.Debug.SetLA("There has been an issue when generating e-Invoice #",V.Global.sInvoiceNo,".  Terminal ID and Report ID is invalid.  Please contact Global Shop.",V.Ambient.NewLine,V.Ambient.NewLine,"Data exists,but terminal and report ID invalid. Terminal in table: ",V.ODBC.conx!rstCheck.FieldValTrim!TERMINAL_NO," rpt ID in table:",V.ODBC.conx!rstCheck.FieldValTrim!RPTID,".Query:",V.Local.sQuery)
+			F.Intrinsic.UI.Msgbox(V.Ambient.LastAction)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Else
+		F.Intrinsic.Debug.SetLA("There has been an issue when generating e-Invoice #",V.Global.sInvoiceNo,".  Terminal ID is invalid.  Please contact Global Shop.",V.Ambient.LastAction,V.Ambient.LastAction,"Data exists,but terminal invalid. Terminal in table: ",V.ODBC.conx!rstCheck.FieldValTrim!TERMINAL_NO,". Query: ",V.Local.sQuery)
+		F.Intrinsic.UI.Msgbox(V.Ambient.LastAction)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.Else
+	F.Intrinsic.Debug.SetLA("Data exists: ",V.Local.sQuery)
+	V.Local.bExists.Set(True)
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rstCheck.Close
+
+F.Intrinsic.Variable.AddRV("bDataExists",V.Local.bExists)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Sub_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Check_Table_Data.End
+
+Program.Sub.Check_eContacts_Meth.Start
+F.Intrinsic.Control.SetErrorHandler("Check_eContacts_Meth_Err")
+F.Intrinsic.Control.ClearErrors
+
+'Checks to see how e-Invoicing contacts were added.  iType=0 if added from ATG_AUTO_EMAIL_CUST.gas from CRM, iType=1 if using script button from Customer Master (ATG_Invoice_Delivery.gas)
+V.Local.sQuery.Declare(String)
+V.Local.iType.Declare(Long)
+
+V.Local.sQuery.Set("SELECT * FROM ATG_CUSTOMER_EMAIL WHERE CUSTOMER='-1'")
+F.ODBC.Connection!conx.OpenRecordsetRO("rstCheck",V.Local.sQuery)
+F.Intrinsic.Control.If(V.ODBC.conx!rstCheck.EOF,=,True)
+	V.Local.iType.Set(0)
+F.Intrinsic.Control.Else
+	V.Local.iType.Set(1)
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rstCheck.Close
+
+F.Intrinsic.Variable.AddRV("iType",V.Local.iType)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Check_eContacts_Meth_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: ATG_AUTO_EMAIL_CUST.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.Debug.SetLA(V.Local.sError)
+	F.Intrinsic.Control.CallSub(unload)
+Function.Intrinsic.Control.EndIf
+
+Program.Sub.Check_eContacts_Meth.End
+
+Program.Sub.GetCustInfo.Start
+'Added 11/24/10 for USPLabs
+'Commented out the code to open the Common DB connection, and added the Function to ReadCompanyName - ENM 4/12/2013
+V.Local.sQuery.Declare(String)
+V.Local.sCustPO.Declare(String)
+V.Local.sError.Declare(String)
+
+Function.Intrinsic.Control.SetErrorHandler("GetCustPO_Err")
+Function.Intrinsic.Control.ClearErrors
+
+'F.Intrinsic.String.Concat("SELECT CUSTOMER_PO FROM V_ORDER_HEADER WHERE ORDER_NO='",V.Global.sOrderNo,"'",V.Local.sQuery)
+F.Intrinsic.String.Concat("SELECT CUSTOMER_PO FROM V_ORDER_HIST_HEAD WHERE Invoice='",V.Global.sInvoiceNo,"'",V.Local.sQuery)
+F.ODBC.Connection!conx.OpenRecordsetRO("rstCustPO",V.Local.sQuery)
+F.Intrinsic.Control.If(V.ODBC.conx!rstCustPO.EOF,<>,True)
+	V.Global.sCustPO.Set(V.ODBC.conx!rstCustPO.FieldValTrim!CUSTOMER_PO)
+F.Intrinsic.Control.Else
+	F.ODBC.conx!rstCustPO.Close
+	F.Intrinsic.String.LPad(V.Global.sOrderNo,"0",7,V.Local.sQuery)
+	F.Intrinsic.String.Concat("SELECT CUSTOMER_PO FROM V_ORDER_HEADER WHERE ORDER_NO='",V.Local.sQuery,"'",V.Local.sQuery)
+	F.ODBC.Connection!conx.OpenRecordsetRO("rstCustPO",V.Local.sQuery)
+	F.Intrinsic.Control.If(V.ODBC.conx!rstCustPO.EOF,<>,True)
+		V.Global.sCustPO.Set(V.ODBC.conx!rstCustPO.FieldValTrim!CUSTOMER_PO)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rstCustPO.Close
+
+F.Intrinsic.String.Concat("SELECT NAME_CUSTOMER FROM V_CUSTOMER_MASTER WHERE CUSTOMER='",V.Global.sCustomer,"'",V.Local.sQuery)
+F.ODBC.Connection!conx.OpenRecordsetRO("rstCustPO",V.Local.sQuery)
+F.Intrinsic.Control.If(V.ODBC.conx!rstCust.EOF,<>,True)
+	V.Global.sCustomerName.Set(V.ODBC.conx!rstCustPO.FieldValTrim!NAME_CUSTOMER)
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rstCustPO.Close
+
+f.Intrinsic.Control.If(V.Caller.GSSVersion.float,>=,2011.1)
+	'F.Intrinsic.Debug.SetLA("Opening GlobalCommon Connection")
+	'F.ODBC.Connection!conC.OpenConnection(V.Ambient.Ccon,V.Ambient.CUser,V.Ambient.Cpass)
+	'F.Intrinsic.Debug.SetLA("GlobalCommon Connection Successful")
+	'F.Intrinsic.String.Concat("SELECT * FROM COMPANIES WHERE CoCode='",V.Caller.CompanyCode,"'",V.Local.sQuery)
+	'F.ODBC.Connection!conC.OpenRecordsetRO("rstCompany",V.Local.sQuery)
+	'F.Intrinsic.Control.If(V.ODBC.conC!rstCompany.EOF,<>,True)
+	f.Global.General.ReadCompanyName(v.Caller.CompanyCode,v.Global.sCompany)
+	'V.Global.sCompany.Set(V.ODBC.conC!rstCompany.FieldValTrim!CompanyName)
+	'F.Intrinsic.Control.EndIf
+	'F.ODBC.conC!rstCompany.Close
+	'F.ODBC.Connection!conC.Close
+F.Intrinsic.Control.Else
+	F.ODBC.Connection!conx.OpenRecordsetRO("rstCust","SELECT * FROM V_COMPANY")
+	F.Intrinsic.Control.If(V.ODBC.conx!rstCust.EOF,<>,True)
+		V.Global.sCustomer.Set(V.ODBC.conx!rstCust.FieldValTrim!NAME_COMPANY)
+	F.Intrinsic.Control.EndIf
+	F.ODBC.conx!rstCust.Close
+F.Intrinsic.Control.EndIf
+
+Function.Intrinsic.Control.ExitSub
+
+Function.Intrinsic.Control.Label("GetCustPO_Err")
+Function.Intrinsic.Control.If(Variable.Ambient.ErrorNumber,"<>",0)
+	Function.Intrinsic.String.Concat("Error Occurred ",Variable.Ambient.ErrorNumber," with description ",Variable.Ambient.ErrorDescription,Variable.Local.sError)
+	F.Intrinsic.Control.CallSub(unload)
+Function.Intrinsic.Control.EndIf
+
+Program.Sub.GetCustInfo.End
+
+Program.Sub.PopDefaultText.Start
+'Added 11-24-10 for USPLabs
+V.Local.sFile.Declare(String)
+V.Local.sText.Declare(String)
+V.Local.bExists.Declare(Boolean)
+V.Local.sSubject.Declare(String)
+V.Local.sBody.Declare(String)
+V.Local.sError.Declare(String)
+
+Function.Intrinsic.Control.SetErrorHandler("PopDefaultText_Err")
+Function.Intrinsic.Control.ClearErrors
+
+F.Intrinsic.String.Concat(V.Caller.PluginsDir,"\GAB\GAS\eInvoicing_Body_Text.txt",V.Local.sFile)
+F.Intrinsic.File.Exists(V.Local.sFile,V.Local.bExists)
+F.Intrinsic.Control.If(V.Local.bExists,=,True)
+	F.Intrinsic.File.File2String(V.Local.sFile,V.Local.sBody)
+F.Intrinsic.Control.Else
+	V.Local.sBody.Set("Attached is your invoice.  Thank you.")
+	F.Intrinsic.String.Concat("e-Invoice ",V.Global.sInvoiceNo,V.Local.sSubject)
+	F.Intrinsic.File.String2File(V.Local.sFile,V.Local.sBody)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.CallSub(Getcustinfo)
+
+F.Intrinsic.File.File2String(V.Local.sFile,V.Local.sText)
+F.Intrinsic.String.Replace(V.local.sText,"%INVOICE%",V.Global.sInvoiceNo,V.Local.sText)
+F.Intrinsic.String.Replace(V.Local.sText,"%CUSTPO%",V.Global.sCustPO,V.Local.sText)
+F.Intrinsic.String.Replace(V.Local.sText,"%CUSTOMER%",V.Global.sCustomerName,V.Local.sText)
+F.Intrinsic.String.Replace(V.Local.sText,"%COMPANY%",V.Global.sCompany,V.Local.sText)
+F.Intrinsic.String.Split(V.Local.sText,"*!*",V.Local.sText)
+
+F.Intrinsic.Control.If(V.Local.sText.UBound,>,0)
+	V.Local.sSubject.Set(V.Local.sText(0))
+	V.Local.sBody.Set(V.Local.sText(1))
+F.Intrinsic.Control.Else
+	V.Local.sBody.Set(V.Local.sText)
+	F.Intrinsic.String.Concat("e-Invoice ",V.Global.sInvoiceNo,V.Local.sSubject)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Variable.AddRV("sBody",V.Local.sBody)
+F.Intrinsic.Variable.AddRV("sSubject",V.Local.sSubject)
+
+Function.Intrinsic.Control.ExitSub
+
+Function.Intrinsic.Control.Label("PopDefaultText_Err")
+Function.Intrinsic.Control.If(Variable.Ambient.ErrorNumber,"<>",0)
+	Function.Intrinsic.String.Concat("Error Occurred ",Variable.Ambient.ErrorNumber," with description ",Variable.Ambient.ErrorDescription,Variable.Local.sError)
+	F.Intrinsic.Control.CallSub(unload)
+Function.Intrinsic.Control.EndIf
+
+Program.Sub.PopDefaultText.End
+
+Program.Sub.Comments.Start
+${$0$}$GAB_4227_Overdue_Invoices$}$A. Williams$}$8/30/2016 6:43:30 PM$}$False
+${$3$}$0$}$$}$0$}$-1$}$$}$12:00:00 AM$}$This was coded by FEQ on December 2016. It adds a screen to the script 1 button on the inventory master screen to save furnace information to parts, as well as a screen to add a furnace to a work order on the work order header screen
+Program.Sub.Comments.End
